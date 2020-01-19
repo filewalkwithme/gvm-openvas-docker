@@ -1,1 +1,1 @@
-docker run --rm -ti -d --name openvas openvas
+sudo docker run --rm -ti -d --name openvas openvas

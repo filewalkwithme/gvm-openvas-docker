@@ -1,1 +1,1 @@
-docker exec -ti openvas bash
+sudo docker exec -ti openvas bash

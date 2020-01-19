@@ -1,1 +1,1 @@
-docker stop openvas
+sudo docker stop openvas

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o xtrace
+
 /etc/init.d/postgresql start
 
 runuser -l postgres -c 'createuser -DRS root'

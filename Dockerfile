@@ -34,6 +34,7 @@ RUN git clone https://github.com/greenbone/openvas.git
 RUN git clone https://github.com/greenbone/ospd.git
 RUN git clone https://github.com/greenbone/ospd-openvas.git
 RUN git clone https://github.com/greenbone/gvmd.git
+RUN git clone https://github.com/greenbone/gvm-tools
 
 # Build gvm-libs v11.0.0 from sources
 WORKDIR /gvm-libs
@@ -54,6 +55,11 @@ RUN cmake ..
 RUN make
 RUN make install
 RUN make rebuild_cache
+
+# Build gvm-tools v2.0.0 from sources
+WORKDIR /gvm-tools
+RUN git checkout v2.0.0
+RUN pip3 install -e .
 
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/
 
@@ -87,11 +93,6 @@ RUN echo "db_address = /var/run/redis/redis.sock" > /usr/local/etc/openvas/openv
 RUN useradd -m openvas
 RUN chown openvas:openvas /usr/local/var/lib/openvas/plugins
 
-# Update NVT
-# RUN runuser -l openvas -c 'greenbone-nvt-sync'
-# RUN /etc/init.d/redis-server start; openvas -u
-# RUN cat /usr/local/var/log/gvm/openvas.log
-
 # # Setting up the PostgreSQL database
 ADD setup_postgres.sh setup_postgres.sh
 RUN ./setup_postgres.sh
@@ -102,6 +103,14 @@ RUN ldconfig
 
 # Create certificates
 RUN gvm-manage-certs -a
+
+ADD setup_openvas.sh setup_openvas.sh
+RUN ./setup_openvas.sh
+
+# Update NVT
+# RUN runuser -l openvas -c 'greenbone-nvt-sync'
+# RUN /etc/init.d/redis-server start; openvas -u
+# RUN cat /usr/local/var/log/gvm/openvas.log
 
 ADD boot.sh /boot.sh
 CMD /boot.sh

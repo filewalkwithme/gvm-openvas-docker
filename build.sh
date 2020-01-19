@@ -1,1 +1,1 @@
-docker build -t openvas .
+sudo docker build -t openvas .
