@@ -9,7 +9,8 @@ ospd-openvas --log-level=DEBUG -l /usr/local/var/log/ospd-openvas.log
 
 until pg_isready; do sleep 1; done
 
-gvmd --listen=127.0.0.1 --osp-vt-update=/var/run/ospd/ospd.sock
-gvmd --osp-vt-update=/var/run/ospd/ospd.sock
+gvmd --osp-vt-update=/var/run/ospd/ospd.sock --unix-socket /var/run/gvmd.sock --listen-owner=openvas 
+
+gsad --munix-socket /var/run/gvmd.sock
 
 tail -f /dev/null

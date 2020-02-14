@@ -1,1 +1,1 @@
-sudo docker run --rm -ti -d --name openvas openvas
+sudo docker run -p 80:80 -p 443:443 --rm -ti -d --name openvas openvas

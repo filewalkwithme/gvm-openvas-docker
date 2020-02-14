@@ -1,7 +1,7 @@
 FROM debian:stretch
 
 RUN apt-get update
-RUN apt-get install vim git wget redis-server -y
+RUN apt-get install vim git wget redis-server nmap -y
 
 # Dependencies for gvm-libs v11.0.0
 RUN apt-get install \
@@ -29,12 +29,16 @@ RUN apt-get install psutils -y
 # Dependencies for gvmd v9.0.0
 RUN apt-get install libical-dev libpq-dev postgresql postgresql-contrib postgresql-server-dev-all gnutls-bin -y
 
+# Dependencies for gsa v9.0.0
+RUN apt-get install libmicrohttpd-dev libxml2-dev clang-format curl apt-transport-https -y
+
 RUN git clone https://github.com/greenbone/gvm-libs.git
 RUN git clone https://github.com/greenbone/openvas.git
 RUN git clone https://github.com/greenbone/ospd.git
 RUN git clone https://github.com/greenbone/ospd-openvas.git
 RUN git clone https://github.com/greenbone/gvmd.git
 RUN git clone https://github.com/greenbone/gvm-tools
+RUN git clone https://github.com/greenbone/gsa.git
 
 # Build gvm-libs v11.0.0 from sources
 WORKDIR /gvm-libs
@@ -82,6 +86,24 @@ RUN cmake ..
 RUN make
 RUN make install
 RUN make rebuild_cache
+
+RUN curl --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && curl --silent --show-error https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
+    && echo "deb https://deb.nodesource.com/node_8.x stretch main" | tee /etc/apt/sources.list.d/nodesource.list \
+    && apt-get update \
+    && apt-get install nodejs yarn
+
+# Build gsa v9.0.0 from sources
+WORKDIR /gsa
+RUN git checkout v9.0.0
+RUN mkdir build
+WORKDIR /gsa/build
+RUN cmake ..
+RUN make
+RUN make install
+RUN make rebuild_cache
+
 
 WORKDIR /
 

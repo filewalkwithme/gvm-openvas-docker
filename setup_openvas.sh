@@ -11,7 +11,7 @@ openvas -u
 ospd-openvas --log-level=DEBUG -l /usr/local/var/log/ospd-openvas.log 
 ( tail -f -n0 /usr/local/var/log/ospd-openvas.log & ) | grep -q "Finish loading up vts"
 
-gvmd --listen=127.0.0.1 --osp-vt-update=/var/run/ospd/ospd.sock
+gvmd --osp-vt-update=/var/run/ospd/ospd.sock --unix-socket /var/run/gvmd.sock --listen-owner=openvas 
 
 tail -f /usr/local/var/log/gvm/gvmd.log &
 ( tail -f -n0 /usr/local/var/log/gvm/gvmd.log & ) | grep -q "done"
