@@ -1,7 +1,7 @@
 # openvas-in-the-box
 
-This is a Docker image that comes with Openvas installed and ready to use.
-The NVT is downloaded during the build and stored inside the final image.
+This is a Docker image that comes with the latest version of Openvas (GVM 11) installed and ready to use.
+The NVT feed database is downloaded during the Docker build step and stored inside the final image.
 This way, when the image starts it's ready to start scanning.
 
 ## How to start a local container
