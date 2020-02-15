@@ -4,6 +4,12 @@ This is a Docker image that comes with the latest version of Openvas (GVM 11) in
 The NVT feed database is downloaded during the Docker build step and stored inside the final image.
 This way, when the image starts it's ready to start scanning.
 
+## How to build the image
+
+```
+sudo docker build -t openvas .
+```
+
 ## How to start a local container
 
 ```
