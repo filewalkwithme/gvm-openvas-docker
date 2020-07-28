@@ -1,4 +1,4 @@
-# Ready to use Openvas/GVM 11 in a Docker container
+# Ready to use Openvas / GVM 11 in a Docker container
 
 This is a Docker image that comes with the latest version of Openvas (GVM 11) installed and ready to use.
 The NVT feed database is downloaded during the Docker build step and stored inside the final image.
