@@ -4,6 +4,14 @@ This is a Docker image that comes with the latest version of Openvas (GVM 11) in
 The NVT feed database is downloaded during the Docker build step and stored inside the final image.
 This way, when the image starts it's ready to start scanning.
 
+## Run from DockerHub
+
+This image is available on DockerHub under [maiconio/gvm-openvas-docker](https://hub.docker.com/r/maiconio/gvm-openvas-docker)
+
+```
+sudo docker run -p 80:80 -p 443:443 --rm -ti -d --name openvas maiconio/gvm-openvas-docker
+```
+
 ## How to build the image
 
 ```
