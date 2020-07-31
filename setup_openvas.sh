@@ -5,10 +5,12 @@ set -o xtrace
 /etc/init.d/redis-server start
 /etc/init.d/postgresql start
 
-runuser -l openvas -c 'greenbone-nvt-sync'
+mkdir /var/run/ospd
+
 openvas -u
 
 ospd-openvas --log-level=DEBUG -l /usr/local/var/log/ospd-openvas.log 
+
 ( tail -f -n0 /usr/local/var/log/ospd-openvas.log & ) | grep -q "Finish loading up vts"
 
 gvmd --osp-vt-update=/var/run/ospd/ospd.sock --unix-socket /var/run/gvmd.sock --listen-owner=openvas 

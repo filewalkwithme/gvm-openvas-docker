@@ -28,11 +28,10 @@ Password: openvas
 ```
 
 ## List of software and versions 
-- gvm-libs `v11.0.0`
-- openvas `v7.0.0`
-- ospd `v2.0.0`
-- ospd-openvas `v1.0.0`
-- gvmd `v9.0.0`
-- gvmd-tools `v2.0.0`
-- gsa `v9.0.0`
+- gvm-libs `v11.0.1`
+- openvas `v7.0.1`
+- ospd `v2.0.1`
+- ospd-openvas `v1.0.1`
+- gvmd `v9.0.1`
+- gsa `v9.0.1`
 - nmap
